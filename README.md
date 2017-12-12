@@ -4,6 +4,32 @@ Self-Driving Car Engineer Nanodegree Program
 [image1]: ./MPC_GIF.gif "MPC Result" 
 ![alt text][image1]
 
+
+## Introduction
+
+This projects implements the Model Predictive Controls using vehicle kinematics motion models. To control vehicle it takes initial vehicle position and heading direction from simulator and based on motion models it predicts future position and required controls to acehive required position.
+
+## Vehicle Kinematics Model
+
+ The state, actuators and how the state changes over time based on the previous state and current actuator inputs is given by below equations:
+ 
+ xt+1 = xt+vt∗cos(ψt)∗dt
+
+yt+1 = yt+vt∗sin(ψt)∗dt
+
+ψt+1 = ψt+Lf/vt∗δt∗dt
+
+vt+1 = vt+at∗dt
+
+Where:
+
+* xt - xt is the global map coordinate x of the current location of the vehicle
+* yt - yt is the global map coordinate y of the current location of the vehicle
+* ψt - the current heading angle/ direction heading of the vehicle
+* vt - the current speed/ velocity of the vehicle.
+
+
+ 
 ---
 
 ## Dependencies
