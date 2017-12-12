@@ -7,7 +7,7 @@ Self-Driving Car Engineer Nanodegree Program
 
 ## Introduction
 
-This projects implements the Model Predictive Controls using vehicle kinematics motion models. To control vehicle it takes initial vehicle position and heading direction from simulator and based on motion models it predicts future position and required controls to acehive required position.
+This projects implements the Model Predictive Controls using vehicle kinematics motion models. To control vehicle it takes initial vehicle position and heading direction from simulator and based on motion models it predicts future position and required controls to acehive that position.
 
 ## Vehicle Kinematics Model
 
@@ -28,8 +28,26 @@ Where:
 * ψt - the current heading angle/ direction heading of the vehicle
 * vt - the current speed/ velocity of the vehicle.
 
+To check the difference between current vehicle position and desired vehicle position we have defined two errors 1) Cross Track Errors and 2) Orientation Error
 
- 
+1) Cross Track Errors(CTE)
+We can express CTE, the error between the center of the road and the vehicle's position as the cross track error:
+
+cte(t+1) = cte(t)+vt∗sin(eψt)∗dt
+
+In this case cte(t) can be expressed as the difference between the line and the current vehicle position y. Assuming the reference line is a 1st order polynomial f:
+
+cte(t) =f(xt)−yt
+
+If we substitute cte(t)back into the original equation the result is:
+
+cte(t+1) = f(xt)−yt+(vt∗sin(eψt)∗dt)
+
+2) Orientation Error
+
+Oriantation error is modelled as 
+eψ(t+1) = ψt−ψdest+(vt/Lf∗δt∗dt)
+
 ---
 
 ## Dependencies
