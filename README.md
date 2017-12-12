@@ -48,6 +48,29 @@ cte(t+1) = f(xt)−yt+(vt∗sin(eψt)∗dt)
 Oriantation error is modelled as 
 eψ(t+1) = ψt−ψdest+(vt/Lf∗δt∗dt)
 
+## Length and Duration
+The prediction horizon is the duration over which future predictions are made. We have deifed it as T. T is the product of two other variables, N and dt.
+N is the number of timesteps in the horizon. dt is how much time elapses between actuations. For example, if N were 20 and dt were 0.5, then T would be 10 seconds.
+
+For our model based on number of iterations and optimization N value is 10 and  dt is 0.1.
+
+## Fitting Polynomials
+The reference trajectory is typically passed to the control block as a polynomial. This polynomial is usually 3rd order, since third order polynomials will fit trajectories for most roads. To fit 3rd order polynomials to waypoints (x, y), we have used 'polyfit' to fit a 3rd order polynomial to the given x and y coordinates representing waypoints and 'polyeval' to evaluate y values of given x coordinates.
+
+## Model Predictive Control with Latency
+In a real car, an actuation command won't execute instantly - there will be a delay as the command propagates through the system. A realistic delay might be on the order of 100 milliseconds.
+
+This is a problem called "latency", and it's a difficult challenge for some controllers - like a PID controller - to overcome. But a Model Predictive Controller can adapt quite well because we can model this latency in the system.
+We have considered Latency 0.1 i.e. prediction 100 ms in future. and it is implemented in main.cpp as given below:
+
+```         state[0] = v*cos(0)*latency;
+            state[1] = v*sin(0)*latency;
+            state[2] = (-v*steer_value*latency/Lf);
+            state[3] = v + throttle_value*latency;
+            state[4] = cte + v*sin(epsi)*latency;
+            state[5] = epsi - (v/Lf)*steer_value*latency;
+```
+
 ---
 
 ## Dependencies
